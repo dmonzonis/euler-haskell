@@ -11,8 +11,8 @@ collatz n
 
 -- Gets longest Collatz chain with starting value strictly smaller than n
 longestCollatz :: (Integral a) => a -> [a]
-longestCollatz n = maximumBy (comparing length) $ collatzSeq n
-    where collatzSeq n = map collatz [1..n-1]
+longestCollatz n = snd . maximumBy (comparing fst) $ collatzPairs n
+    where collatzPairs n = [(length x, x) | x <- map collatz [1..n-1]]
 
 main :: IO ()
 main = do print . head . longestCollatz $ 1000000
